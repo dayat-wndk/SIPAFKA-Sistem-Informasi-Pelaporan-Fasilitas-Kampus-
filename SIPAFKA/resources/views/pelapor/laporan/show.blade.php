@@ -57,7 +57,13 @@
                         <span class="pl-file-ext">{{ strtoupper(pathinfo($laporan->foto, PATHINFO_EXTENSION) ?: 'IMG') }}</span>
                         <div>
                             <div class="pl-photo-name">{{ basename($laporan->foto) }}</div>
-                            <div class="pl-photo-sub">Foto kerusakan yang dilampirkan pelapor</div>
+                            <div class="pl-photo-sub">
+                                @if (!empty($ukuranFoto))
+                                    Foto kerusakan &bull; {{ $ukuranFoto }}
+                                @else
+                                    Foto kerusakan yang dilampirkan pelapor
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
