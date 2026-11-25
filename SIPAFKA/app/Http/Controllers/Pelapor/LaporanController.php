@@ -10,13 +10,14 @@ use App\Models\Laporan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class LaporanController extends Controller
 {
     public function index(Request $request): View
     {
-        $cari = trim((string) $request->query('cari', ''));
+        $cari = trim((string) $request->query('cari', $request->query('q', '')));
         $statusFilter = trim((string) $request->query('status', ''));
 
         $query = Auth::user()
@@ -126,11 +127,20 @@ class LaporanController extends Controller
         $perbaikanTerakhir = $daftarPerbaikan->last();
         $perbaikanSelesai = $daftarPerbaikan->last(fn ($item) => filled($item->hasil));
 
+        $ukuranFoto = null;
+        if ($laporan->foto && Storage::disk('public')->exists($laporan->foto)) {
+            $bytes = Storage::disk('public')->size($laporan->foto);
+            $ukuranFoto = $bytes >= 1024 * 1024
+                ? str_replace('.', ',', number_format($bytes / (1024 * 1024), 1)) . ' MB'
+                : max(1, (int) round($bytes / 1024)) . ' KB';
+        }
+
         return view('pelapor.laporan.show', compact(
             'laporan',
             'perbaikanPertama',
             'perbaikanTerakhir',
             'perbaikanSelesai',
+            'ukuranFoto',
         ));
     }
 
