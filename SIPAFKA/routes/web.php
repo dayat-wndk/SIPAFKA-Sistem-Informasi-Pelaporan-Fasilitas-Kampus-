@@ -45,3 +45,25 @@ Route::middleware(['auth', 'aktif', 'role:pelapor'])
             ->name('laporan.show');
     });
 // ROUTE MILIK HATMAN FIRDAYAT BERAKHIR
+
+// ROUTE MILIK MIRAWATI DIMULAI
+Route::middleware(['auth', 'aktif', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/laporan', [\App\Http\Controllers\Admin\VerifikasiLaporanController::class, 'index'])
+            ->name('laporan.index');
+        Route::get('/laporan/{laporan}', [\App\Http\Controllers\Admin\VerifikasiLaporanController::class, 'show'])
+            ->name('laporan.show');
+        Route::post('/laporan/{laporan}/verifikasi', [\App\Http\Controllers\Admin\VerifikasiLaporanController::class, 'approve'])
+            ->name('laporan.approve');
+        Route::post('/laporan/{laporan}/tolak', [\App\Http\Controllers\Admin\VerifikasiLaporanController::class, 'reject'])
+            ->name('laporan.reject');
+        Route::get('/laporan/{laporan}/ditolak', [\App\Http\Controllers\Admin\VerifikasiLaporanController::class, 'rejectedView'])
+            ->name('laporan.rejected');
+        Route::get('/laporan/{laporan}/tugaskan', [\App\Http\Controllers\Admin\PenugasanController::class, 'create'])
+            ->name('laporan.assign');
+        Route::post('/laporan/{laporan}/tugaskan', [\App\Http\Controllers\Admin\PenugasanController::class, 'store'])
+            ->name('laporan.assign.store');
+    });
+// ROUTE MILIK MIRAWATI BERAKHIR
