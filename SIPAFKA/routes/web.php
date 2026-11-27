@@ -68,6 +68,31 @@ Route::middleware(['auth', 'aktif', 'role:admin'])
     });
 // ROUTE MILIK MIRAWATI BERAKHIR
 
+// ROUTE MILIK NUR RUSYDA DIMULAI
+Route::middleware(['auth', 'aktif', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/pengguna', [\App\Http\Controllers\Admin\UserController::class, 'index'])
+            ->name('users.index');
+        Route::post('/pengguna', [\App\Http\Controllers\Admin\UserController::class, 'store'])
+            ->name('users.store');
+        Route::get('/pengguna/{user}/edit', [\App\Http\Controllers\Admin\UserController::class, 'edit'])
+            ->name('users.edit');
+        Route::put('/pengguna/{user}', [\App\Http\Controllers\Admin\UserController::class, 'update'])
+            ->name('users.update');
+
+        Route::get('/fasilitas', [\App\Http\Controllers\Admin\FasilitasController::class, 'index'])
+            ->name('fasilitas.index');
+        Route::post('/fasilitas', [\App\Http\Controllers\Admin\FasilitasController::class, 'store'])
+            ->name('fasilitas.store');
+        Route::get('/fasilitas/{fasilitas}/edit', [\App\Http\Controllers\Admin\FasilitasController::class, 'edit'])
+            ->name('fasilitas.edit');
+        Route::put('/fasilitas/{fasilitas}', [\App\Http\Controllers\Admin\FasilitasController::class, 'update'])
+            ->name('fasilitas.update');
+    });
+// ROUTE MILIK NUR RUSYDA BERAKHIR
+
 // ROUTE MILIK MUH IMAN DIMULAI
 Route::middleware(['auth', 'aktif', 'role:teknisi'])
     ->prefix('teknisi')
