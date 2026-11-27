@@ -46,30 +46,27 @@ Route::middleware(['auth', 'aktif', 'role:pelapor'])
     });
 // ROUTE MILIK HATMAN FIRDAYAT BERAKHIR
 
-// ROUTE MILIK NUR RUSYDA DIMULAI
+// ROUTE MILIK MIRAWATI DIMULAI
 Route::middleware(['auth', 'aktif', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        Route::get('/pengguna', [\App\Http\Controllers\Admin\UserController::class, 'index'])
-            ->name('users.index');
-        Route::post('/pengguna', [\App\Http\Controllers\Admin\UserController::class, 'store'])
-            ->name('users.store');
-        Route::get('/pengguna/{user}/edit', [\App\Http\Controllers\Admin\UserController::class, 'edit'])
-            ->name('users.edit');
-        Route::put('/pengguna/{user}', [\App\Http\Controllers\Admin\UserController::class, 'update'])
-            ->name('users.update');
-
-        Route::get('/fasilitas', [\App\Http\Controllers\Admin\FasilitasController::class, 'index'])
-            ->name('fasilitas.index');
-        Route::post('/fasilitas', [\App\Http\Controllers\Admin\FasilitasController::class, 'store'])
-            ->name('fasilitas.store');
-        Route::get('/fasilitas/{fasilitas}/edit', [\App\Http\Controllers\Admin\FasilitasController::class, 'edit'])
-            ->name('fasilitas.edit');
-        Route::put('/fasilitas/{fasilitas}', [\App\Http\Controllers\Admin\FasilitasController::class, 'update'])
-            ->name('fasilitas.update');
+        Route::get('/laporan', [\App\Http\Controllers\Admin\VerifikasiLaporanController::class, 'index'])
+            ->name('laporan.index');
+        Route::get('/laporan/{laporan}', [\App\Http\Controllers\Admin\VerifikasiLaporanController::class, 'show'])
+            ->name('laporan.show');
+        Route::post('/laporan/{laporan}/verifikasi', [\App\Http\Controllers\Admin\VerifikasiLaporanController::class, 'approve'])
+            ->name('laporan.approve');
+        Route::post('/laporan/{laporan}/tolak', [\App\Http\Controllers\Admin\VerifikasiLaporanController::class, 'reject'])
+            ->name('laporan.reject');
+        Route::get('/laporan/{laporan}/ditolak', [\App\Http\Controllers\Admin\VerifikasiLaporanController::class, 'rejectedView'])
+            ->name('laporan.rejected');
+        Route::get('/laporan/{laporan}/tugaskan', [\App\Http\Controllers\Admin\PenugasanController::class, 'create'])
+            ->name('laporan.assign');
+        Route::post('/laporan/{laporan}/tugaskan', [\App\Http\Controllers\Admin\PenugasanController::class, 'store'])
+            ->name('laporan.assign.store');
     });
-// ROUTE MILIK NUR RUSYDA BERAKHIR
+// ROUTE MILIK MIRAWATI BERAKHIR
 
 // ROUTE MILIK MUH IMAN DIMULAI
 Route::middleware(['auth', 'aktif', 'role:teknisi'])
