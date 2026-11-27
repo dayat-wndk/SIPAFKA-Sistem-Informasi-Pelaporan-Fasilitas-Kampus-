@@ -51,6 +51,8 @@ Route::middleware(['auth', 'aktif', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
+        Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])
+            ->name('dashboard');
         Route::get('/laporan', [\App\Http\Controllers\Admin\VerifikasiLaporanController::class, 'index'])
             ->name('laporan.index');
         Route::get('/laporan/{laporan}', [\App\Http\Controllers\Admin\VerifikasiLaporanController::class, 'show'])
@@ -98,7 +100,7 @@ Route::middleware(['auth', 'aktif', 'role:teknisi'])
     ->prefix('teknisi')
     ->name('teknisi.')
     ->group(function () {
-        Route::get('/dashboard', fn () => redirect()->route('teknisi.tugas.index'))
+        Route::get('/dashboard', [\App\Http\Controllers\Teknisi\DashboardController::class, 'index'])
             ->name('dashboard');
         Route::get('/tugas', [\App\Http\Controllers\Teknisi\TugasController::class, 'index'])
             ->name('tugas.index');
