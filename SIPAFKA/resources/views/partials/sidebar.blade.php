@@ -39,9 +39,43 @@
                 />
                 {{-- MENU MILIK HATMAN FIRDAYAT BERAKHIR --}}
             @elseif ($user && $user->role === 'admin')
-                <x-nav-item href="{{ url('/admin/dashboard') }}" nomor="01" label="Dashboard" :active="request()->is('admin/dashboard')" />
+                <x-nav-item
+                    href="{{ route('admin.dashboard') }}"
+                    nomor="01"
+                    label="Dashboard"
+                    :active="request()->routeIs('admin.dashboard')"
+                />
+                <x-nav-item
+                    href="{{ route('admin.laporan.index') }}"
+                    nomor="02"
+                    label="Laporan masuk"
+                    :active="request()->routeIs('admin.laporan.*')"
+                />
+                <x-nav-item
+                    href="{{ route('admin.users.index') }}"
+                    nomor="03"
+                    label="Kelola pengguna"
+                    :active="request()->routeIs('admin.users.*')"
+                />
+                <x-nav-item
+                    href="{{ route('admin.fasilitas.index') }}"
+                    nomor="04"
+                    label="Kelola fasilitas"
+                    :active="request()->routeIs('admin.fasilitas.*')"
+                />
             @elseif ($user && $user->role === 'teknisi')
-                <x-nav-item href="{{ url('/teknisi/dashboard') }}" nomor="01" label="Dashboard" :active="request()->is('teknisi/dashboard')" />
+                <x-nav-item
+                    href="{{ route('teknisi.dashboard') }}"
+                    nomor="01"
+                    label="Dashboard"
+                    :active="request()->routeIs('teknisi.dashboard')"
+                />
+                <x-nav-item
+                    href="{{ route('teknisi.tugas.index') }}"
+                    nomor="02"
+                    label="Daftar tugas"
+                    :active="request()->routeIs('teknisi.tugas.*')"
+                />
             @endif
         </nav>
     </div>
