@@ -67,3 +67,25 @@ Route::middleware(['auth', 'aktif', 'role:admin'])
             ->name('laporan.assign.store');
     });
 // ROUTE MILIK MIRAWATI BERAKHIR
+
+// ROUTE MILIK MUH IMAN DIMULAI
+Route::middleware(['auth', 'aktif', 'role:teknisi'])
+    ->prefix('teknisi')
+    ->name('teknisi.')
+    ->group(function () {
+        Route::get('/dashboard', fn () => redirect()->route('teknisi.tugas.index'))
+            ->name('dashboard');
+        Route::get('/tugas', [\App\Http\Controllers\Teknisi\TugasController::class, 'index'])
+            ->name('tugas.index');
+        Route::get('/tugas/{laporan}', [\App\Http\Controllers\Teknisi\TugasController::class, 'show'])
+            ->name('tugas.show');
+        Route::post('/tugas/{laporan}/mulai', [\App\Http\Controllers\Teknisi\TugasController::class, 'startRepair'])
+            ->name('tugas.start');
+        Route::get('/tugas/{laporan}/perbarui', [\App\Http\Controllers\Teknisi\TugasController::class, 'edit'])
+            ->name('tugas.edit');
+        Route::match(['put', 'patch'], '/tugas/{laporan}', [\App\Http\Controllers\Teknisi\TugasController::class, 'update'])
+            ->name('tugas.update');
+        Route::get('/tugas/{laporan}/selesai', [\App\Http\Controllers\Teknisi\TugasController::class, 'completed'])
+            ->name('tugas.completed');
+    });
+// ROUTE MILIK MUH IMAN BERAKHIR
