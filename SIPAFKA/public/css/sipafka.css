@@ -674,6 +674,21 @@ a {
     line-height: 1.5;
 }
 
+.auth-switch {
+    margin: 0 0 10px;
+    font-size: 13px;
+    color: var(--sip-text-secondary);
+}
+
+.auth-link {
+    color: var(--sip-primary);
+    font-weight: 600;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
+
 .auth-copyright {
     margin-top: 10px;
     color: var(--sip-text-subtle);
